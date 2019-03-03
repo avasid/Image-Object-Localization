@@ -1,11 +1,10 @@
-# coding: utf-8
-
 import numpy as np
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import pickle
 import random
 
-plt.switch_backend('agg')
 
 def getdata():
     # read data and shuffle
