@@ -2,9 +2,11 @@ from PIL import Image
 import numpy as np
 import pickle
 
-def Normalize(image,mean,std):
+def Normalize(image):
     for channel in range(3):
-        image[:,:,channel]=(image[:,:,channel]-mean[channel])/std[channel]
+        mean = np.mean(image[:, :, channel])
+        std = np.std(image[:, :, channel])
+        image[:, :, channel] = (image[:, :, channel] - mean) / std
     return image
 
 def convert(RESOLUTION):
@@ -21,7 +23,7 @@ def convert(RESOLUTION):
             image=image.resize((RESOLUTION,RESOLUTION))
             image=np.array(image,dtype=np.float32)
             image=image/255
-            image=Normalize(image,[0.485,0.456,0.406],[0.229,0.224,0.225])
+            image=Normalize(image) # ,[0.485,0.456,0.406],[0.229,0.224,0.225]
             id_to_data[int(id)]=image
 
     id_to_data=np.array(list(id_to_data.values()))
