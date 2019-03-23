@@ -1,6 +1,6 @@
 import keras
 from keras.layers import Dense, Conv2D, BatchNormalization, Activation
-from keras.layers import AveragePooling2D, MaxPooling2D, Input, Flatten
+from keras.layers import AveragePooling2D, MaxPooling2D, Input, Flatten, GlobalAveragePooling2D
 from keras.optimizers import Adam
 from keras.regularizers import l2
 from keras import backend as tf
@@ -108,11 +108,11 @@ def training(RESOLUTION):
         b=resnet_block(a,512,[3,3],1,activation=None)
         x=keras.layers.add([x,b])
         x=Activation('relu')(x)
-
-        x=AveragePooling2D(pool_size=4,data_format="channels_last")(x)
+        y=GlobalAveragePooling2D(data_format="channels_last")(x)
+        # x=AveragePooling2D(pool_size=4,data_format="channels_last")(x)
         # out:1*1*512
 
-        y=Flatten()(x)
+        # y=Flatten()(x)
         # out:512
         y=Dense(1000,kernel_initializer='he_normal',kernel_regularizer=l2(1e-3))(y)
         outputs=Dense(4,kernel_initializer='he_normal',kernel_regularizer=l2(1e-3))(y)
