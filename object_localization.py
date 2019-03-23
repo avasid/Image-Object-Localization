@@ -8,12 +8,6 @@ from pred_on_images import predictions
 
 RESOLUTION = int(input("Enter resize resolution of images: "))
 
-def save_model(RESOLUTION):
-    name = input("Enter model name: ")
-    try:
-        model.save(name)
-    except:
-        print("error in saving model")
 
 def run_all(RESOLUTION):
     convert(RESOLUTION)
