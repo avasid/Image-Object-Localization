@@ -3,16 +3,22 @@ import numpy as np
 import pickle
 
 def Normalize(image):
+    mean_lst =[]
+    std_list =[]
     for channel in range(3):
         mean = np.mean(image[:, :, channel])
         std = np.std(image[:, :, channel])
         image[:, :, channel] = (image[:, :, channel] - mean) / std
-    return image
+        mean_lst.append(mean)
+        std_list.append(std)
+    return image, mean_lst,std_list
 
 def convert(RESOLUTION):
 
     id_to_data={}
     id_to_size={}
+    id_to_mean={}
+    id_to_std={}
 
     with open("./src/data/images.txt") as f:
         lines=f.read().splitlines()
@@ -24,15 +30,23 @@ def convert(RESOLUTION):
             image=image.resize((RESOLUTION,RESOLUTION))
             image=np.array(image,dtype=np.float32)
             image=image/255
-            image=Normalize(image) # ,[0.485,0.456,0.406],[0.229,0.224,0.225]
+            image, mean_list, std_list = Normalize(image) # ,[0.485,0.456,0.406],[0.229,0.224,0.225]
             id_to_data[int(id)]=image
+            id_to_mean[int(id)] = mean_list
+            id_to_std[int(id)] = std_list
             print("Processing images...  " + str(id) + "/"+ str(len_lines))
     id_to_data=np.array(list(id_to_data.values()))
+    id_to_mean = np.array(list(id_to_mean.values()))
+    id_to_std = np.array(list(id_to_std.values()))
     id_to_size=np.array(list(id_to_size.values()))
     f=open("./id_to_data","wb+")
     pickle.dump(id_to_data,f,protocol=4)
     f=open("./id_to_size","wb+")
     pickle.dump(id_to_size,f,protocol=4)
+    f = open("./id_to_mean", "wb+")
+    pickle.dump(id_to_mean, f, protocol=4)
+    f = open("./id_to_std", "wb+")
+    pickle.dump(id_to_std, f, protocol=4)
 
     id_to_box={}
 

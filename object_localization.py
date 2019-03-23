@@ -4,6 +4,7 @@ from keras import backend as tf
 sys.path.append(os.getcwd() + "/src")
 from images2array import convert
 from train import training
+from pred_on_images import predictions
 
 RESOLUTION = int(input("Enter resize resolution of images: "))
 
@@ -60,20 +61,19 @@ def smooth_l1_loss(true_box,pred_box):
 ##################################
 
 while True:
-    print("1) Resize and convert images to array\n2) Train Model\n3) Save Model(training automatically saves model)\n"
-          "4) Load Model\n5) Test Model\n6) Run all\n7) Quit\n")
+    print("1) Resize and convert images to array\n2) Train Model\n"
+          "3) Load Model\n4) Test Model\n5) Run all\n6) Quit\n")
     choice = int(input("Choice: "))
     choice_dict = {1: convert,
                    2: training,
-                   3: save_model,
-                   4: load_model,
-                   5: "a",
-                   6: run_all,
-                   7: exit}
+                   3: load_model,
+                   4: predictions,
+                   5: run_all,
+                   6: exit}
 
     if choice == 2:
         model = training(RESOLUTION)
-    elif choice == 4:
+    elif choice == 3:
         name = input("Enter model name: ")
         print("Loading model..." + name)
         try:

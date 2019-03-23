@@ -31,11 +31,33 @@ def getdata():
     box_train=box[0:split_boundary]
     box_test=box[split_boundary:]
 
+    f = open("./id_to_mean", "rb+")
+    mean = pickle.load(f)
+    f.close()
+
+    mean = mean[index]
+    # mean_train = mean[0:split_boundary]
+    mean_test = mean[split_boundary:]
+
+    f = open("./id_to_std", "rb+")
+    std = pickle.load(f)
+    f.close()
+
+    std = std[index]
+    # std_train = std[0:split_boundary]
+    std_test = std[split_boundary:]
+
     with open("./id_to_data_test", "wb+") as fh:
         pickle.dump(data_test,fh ,protocol=4)
 
     with open("./id_to_box_test", "wb+") as fh:
         pickle.dump(box_test,fh ,protocol=4)
+
+    with open("./id_to_mean_test", "wb+") as fh:
+        pickle.dump(mean_test,fh ,protocol=4)
+
+    with open("./id_to_std_test", "wb+") as fh:
+        pickle.dump(std_test,fh ,protocol=4)
 
     return data_train,box_train,data_test,box_test
 
