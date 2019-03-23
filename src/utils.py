@@ -8,19 +8,35 @@ import random
 
 def getdata():
     # read data and shuffle
-    index=[i for i in range(11788)]
-    random.shuffle(index)
 
     f=open("./id_to_data","rb+")
     data=pickle.load(f)
+    f.close()
+
+    # Shuffle
+    len_data = len(data)
+    index=[i for i in range(len_data)]
+    random.shuffle(index)
+
     data=data[index]
-    data_train=data[0:9000]
-    data_test=data[9000:]
+    split_boundary = int(len_data*0.75) # 0.75 split ratio
+    data_train=data[0:split_boundary]
+    data_test=data[split_boundary:]
+
     f=open("./id_to_box","rb+")
     box=pickle.load(f)
+    f.close()
+
     box=box[index]
-    box_train=box[0:9000]
-    box_test=box[9000:]
+    box_train=box[0:split_boundary]
+    box_test=box[split_boundary:]
+
+    with open("./id_to_data_test", "wb+") as fh:
+        pickle.dump(data_test,fh ,protocol=4)
+
+    with open("./id_to_box_test", "wb+") as fh:
+        pickle.dump(box_test,fh ,protocol=4)
+
     return data_train,box_train,data_test,box_test
 
 

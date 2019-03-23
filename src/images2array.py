@@ -16,6 +16,7 @@ def convert(RESOLUTION):
 
     with open("./src/data/images.txt") as f:
         lines=f.read().splitlines()
+        len_lines = len(lines)
         for line in lines:
             id,path=line.split(" ",1)
             image=Image.open("./src/data/images/"+path).convert('RGB')
@@ -25,7 +26,7 @@ def convert(RESOLUTION):
             image=image/255
             image=Normalize(image) # ,[0.485,0.456,0.406],[0.229,0.224,0.225]
             id_to_data[int(id)]=image
-
+            print("Processing images...  " + str(id) + "/"+ str(len_lines))
     id_to_data=np.array(list(id_to_data.values()))
     id_to_size=np.array(list(id_to_size.values()))
     f=open("./id_to_data","wb+")
