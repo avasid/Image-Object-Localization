@@ -16,7 +16,7 @@ def run_all(RESOLUTION):
     convert(RESOLUTION)
     model = training(RESOLUTION)
     model.save('./model.h5')
-    model = load_model('./model.h5', custom_objects1={'smooth_l1_loss': smooth_l1_loss, 'my_metric': my_metric})
+    model = load_model('./model.h5', custom_objects={'smooth_l1_loss': smooth_l1_loss, 'my_metric': my_metric})
 
 
 # metric_function
@@ -77,7 +77,7 @@ while True:
         name = input("Enter model name: ")
         print("Loading model..." + name)
         try:
-            model = load_model(name, custom_objects1={'smooth_l1_loss': smooth_l1_loss, 'my_metric': my_metric})
+            model = load_model(name, custom_objects={'smooth_l1_loss': smooth_l1_loss, 'my_metric': my_metric})
         except:
             print("\nError in loading model\n")
 
