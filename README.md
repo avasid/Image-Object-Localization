@@ -40,13 +40,13 @@ Metric: IoU of groound truth and prediction, threshold=0.75
 
 ### Train
 
-Resize all images to ```224*224*3```
+Resize all images to square dimensions (```224*224*3``` recommended)
 
 <div align=center><img  src="https://github.com/CKCZZJ/Image-Object-Localization/blob/master/img/after.png"/></div>
 
 Then normalize and standardize all pixel channel.
 
-Split all data into 9000 training data and 2788 tesing data. Train network on training data using ```batch size=128```, ```epoch=100``` and ```validation split ratio=0.1```
+Split all data into 0.75 training data and 0.25 tesing data. Train network on training data using ```batch size=128```, ```epoch=100``` and ```validation split ratio=0.1```
 
 Training result:
 
@@ -107,14 +107,13 @@ matplotlib
 
 ### Run
 
-In ```src``` directory:
+Run ```pip install -r requirements.txt```
 
-```python getdata.py``` to preprocess data.
+In source directory:
 
-If you want to train model, ```python train.py```
+```python object_localization.py``` to run master script.
 
-If you want to test on trained model(if you had trained model), ```python test.py```
-
+Follow the instructed options.
 
 
 ### Reference
