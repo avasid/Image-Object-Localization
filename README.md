@@ -91,25 +91,13 @@ You should keep the directory structure.
 
 python 3.6
 
-tensorflow 1.3.0
-
-keras 2.1.0
-
-numpy
-
-PIL
-
-pickle
-
-matplotlib
-
 
 
 ### Run
 
 Run ```pip install -r requirements.txt```
 
-In source directory:
+In git root directory:
 
 ```python object_localization.py``` to run master script.
 
