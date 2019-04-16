@@ -1,4 +1,6 @@
+import os
 import pickle
+import shutil
 
 import matplotlib
 import numpy as np
@@ -67,6 +69,8 @@ def predictions(RESOLUTION):
     model = load_model('./model.h5', custom_objects={'smooth_l1_loss': smooth_l1_loss, 'my_metric': my_metric})
     result = model.predict(data[index, :, :, :])
 
+    shutil.rmtree("./prediction/")
+    os.makedirs("./prediction/")
     j = 0
     for i in index:
         print("Predicting " + str(i) + "th image.")
@@ -89,5 +93,5 @@ def predictions(RESOLUTION):
                                           prediction[2] * RESOLUTION, prediction[3] * RESOLUTION,
                                           fill=False, edgecolor='green', linewidth=2, alpha=0.5))
         plt.show()
-        plt.savefig("./pred/" + str(i) + ".png")
+        plt.savefig("./prediction/" + str(i) + ".png")
         plt.cla()

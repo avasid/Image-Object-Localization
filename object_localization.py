@@ -15,8 +15,7 @@ RESOLUTION = int(input("Enter resize resolution of images: "))
 def run_all(RESOLUTION):
     convert(RESOLUTION)
     model = training(RESOLUTION)
-    model.save('./model.h5')
-    model = load_model('./model.h5', custom_objects={'smooth_l1_loss': smooth_l1_loss, 'my_metric': my_metric})
+    predictions(RESOLUTION)
 
 
 # metric_function
